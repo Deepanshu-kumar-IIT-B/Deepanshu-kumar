@@ -1,0 +1,7 @@
+{
+  "name": "DoubtSolver - Student AI Assistant",
+  "description": "A smart educational app that helps students solve academic doubts by uploading photos of questions, extracting text via AI OCR, and providing both step-by-step text explanations and relevant video solutions.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
