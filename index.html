@@ -1,28 +1,110 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DoubtSolver AI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>DoubtSolver AI - Pro Math & Physics</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Caveat:wght@400;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
     <style>
-      body { font-family: 'Inter', sans-serif; }
+      :root {
+        --paper-bg: #fdfdfd;
+        --line-color: #e5e7eb;
+        --margin-color: rgba(239, 68, 68, 0.4);
+        --text-ink: #1a1a1a;
+        --katex-ink: #0f172a;
+      }
+
+      .dark-theme {
+        --paper-bg: #0f172a;
+        --line-color: rgba(255, 255, 255, 0.05);
+        --margin-color: rgba(239, 68, 68, 0.2);
+        --text-ink: #f1f5f9;
+        --katex-ink: #f8fafc;
+      }
+
+      body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; overflow-x: hidden; transition: background-color 0.3s ease; }
+      .font-handwriting { font-family: 'Caveat', cursive; }
+      .font-mono { font-family: 'Fira Code', monospace; }
+      
+      .ruled-paper {
+        background-color: var(--paper-bg);
+        background-image: linear-gradient(var(--line-color) 1px, transparent 1px);
+        background-size: 100% 2rem;
+        line-height: 2rem;
+        color: var(--text-ink);
+        position: relative;
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+
+      .ruled-paper::before {
+        content: '';
+        position: absolute;
+        left: 50px;
+        top: 0;
+        bottom: 0;
+        width: 1.5px;
+        background: var(--margin-color);
+        z-index: 1;
+      }
+
+      .math-display {
+        font-size: 1.15em;
+        padding: 0.5rem 0;
+        color: inherit;
+      }
+
+      /* Ink overrides */
+      .ruled-paper .katex { color: var(--katex-ink) !important; }
+      .dark-theme .ruled-paper .katex-display .katex { color: #60a5fa !important; }
+      .dark-theme .ruled-paper .katex .mbin, 
+      .dark-theme .ruled-paper .katex .mrel { color: #f87171 !important; }
+      
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+      .zoom-container {
+        transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        transform-origin: 0 0;
+        touch-action: none; 
+      }
+
+      /* Audio Wave Animation */
+      .wave-bar {
+        display: inline-block;
+        width: 3px;
+        height: 10px;
+        margin: 0 1px;
+        background-color: currentColor;
+        border-radius: 50px;
+      }
+      .wave-active .wave-bar {
+        animation: wave 0.8s ease-in-out infinite;
+      }
+      .wave-bar:nth-child(2) { animation-delay: 0.1s; }
+      .wave-bar:nth-child(3) { animation-delay: 0.2s; }
+      .wave-bar:nth-child(4) { animation-delay: 0.3s; }
+
+      @keyframes wave {
+        0%, 100% { height: 10px; }
+        50% { height: 20px; }
+      }
     </style>
-  <script type="importmap">
-{
-  "imports": {
-    "react": "https://esm.sh/react@^19.2.3",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "@google/genai": "https://esm.sh/@google/genai@^1.34.0",
-    "lucide-react": "https://esm.sh/lucide-react@^0.562.0"
-  }
-}
-</script>
-</head>
-  <body class="bg-slate-50 text-slate-900">
+    <script type="importmap">
+    {
+      "imports": {
+        "react": "https://esm.sh/react@^19.2.3",
+        "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+        "react/": "https://esm.sh/react@^19.2.3/",
+        "@google/genai": "https://esm.sh/@google/genai@^1.34.0",
+        "lucide-react": "https://esm.sh/lucide-react@^0.562.0"
+      }
+    }
+    </script>
+  </head>
+  <body class="bg-slate-50 text-slate-900 transition-colors duration-300">
     <div id="root"></div>
   </body>
 </html>
